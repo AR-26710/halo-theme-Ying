@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-    th:replace="~{modules/layout :: html(title = ${singlePage.spec.title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}">
+<html th:replace="~{modules/layout :: html(title = ${singlePage.spec.title} + ' - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null,)}"
+      xmlns:th="https://www.thymeleaf.org">
 <th:block th:fragment="content" th:if="${theme.config.equipment_card.myitem == 'item_open'}">
     <div class="post-content uk-animation-fade" itemprop="articleBody">
         <article>
             <h2 class="post-title" th:text="${singlePage.spec.title}"></h2>
             <div class="equipment-item-content">
-            <div class="equipment-item-content-item" th:each="group : ${theme.config.equipment_card.features}">
-                <div class="equipment-item-content-item-cover">
-                    <img class="equipment-item-content-item-image lazyload" alt="game"
-                    th:data-src="${group?.image}" src="" srcset="" th:data-srcset="|${thumbnail.gen(group?.image, 's')} 400w|" sizes="(max-width: 1600px) 100vw, 1600px">
+                <div class="equipment-item-content-item"
+                     th:each="group : ${theme.config.equipment_card.features}">
+                    <div class="equipment-item-content-item-cover">
+                        <img alt="game"
+                             class="equipment-item-content-item-image lazyload"
+                             sizes="(max-width: 1600px) 100vw, 1600px"
+                             src=""
+                             srcset=""
+                             th:data-src="${group?.image}"
+                             th:data-srcset="|${thumbnail.gen(group?.image, 's')} 400w|">
+                    </div>
+                    <div class="equipment-item-content-item-info">
+                        <div class="equipment-item-content-item-name">
+                            <span th:text="${group.title}"></span>
+                        </div>
+                        <div class="equipment-item-content-item-specification"></div>
+                        <div class="equipment-item-content-item-description">
+                            <span th:text="${group.description}"></span>
+                        </div>
+                        <div class="equipment-item-content-item-toolbar">
+                            <div class="equipment-item-content-item-toolbar">
+                                <a target="_blank"
+                                   th:href="${group.link}">
+                                    <input class="button-primary button-small" type="button" value="详情">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="equipment-item-content-item-info">
-                    <div class="equipment-item-content-item-name"><span th:text="${group.title}"></span></div>
-                    <div class="equipment-item-content-item-specification"></div>
-                    <div class="equipment-item-content-item-description"><span th:text="${group.description}"></span></div>
-                    <div class="equipment-item-content-item-toolbar"><div class="equipment-item-content-item-toolbar"><a th:href="${group.link}" target="_blank"><input class="button-primary button-small" type="button" value="详情"></a></div></div></div></div> </div> 
+            </div>
             <div th:utext="${singlePage.content.content}"></div>
             <th:block th:replace="~{modules/comment :: comment(name=${singlePage.metadata.name},kind='SinglePage',group='content.halo.run')}"></th:block>
         </article>
