@@ -21,13 +21,35 @@
                 </span>
             </div>
             <th:block th:utext="${post.content.content}"></th:block>
-            <a class="tag" th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}"
-               th:text="|#${tag.spec.displayName}(${tag.status.postCount})|" th:title="${tag.spec.displayName}"></a>
-            <div class="directory-content" id="directory-content">
+            <a class="tag"
+               th:each="tag : ${post.tags}"
+               th:href="@{${tag.status.permalink}}"
+               th:text="|#${tag.spec.displayName}(${tag.status.postCount})|"
+               th:title="${tag.spec.displayName}">
+            </a>
+            <div class="directory-content"
+                 id="directory-content">
                 <nav class="toc js-toc"></nav>
             </div>
-            <th:block th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}"></th:block>
         </article>
     </div>
+    <ul class="post-pagination"
+        th:with="postCursor = ${postFinder.cursor(post.metadata.name)}">
+        <li class="post-previous"
+            th:if="${postCursor.hasPrevious()}">
+            <a th:href="@{${postCursor.previous.status.permalink}}"
+               th:title="${postCursor.previous.spec.title}">
+                <span>上一篇</span>
+            </a>
+        </li>
+        <li class="post-previous"
+            th:if="${postCursor.hasNext()}">
+            <a th:href="@{${postCursor.next.status.permalink}}"
+               th:title="${postCursor.next.spec.title}">
+                <span>下一篇</span>
+            </a>
+        </li>
+    </ul>
+    <th:block th:replace="~{modules/comment :: comment(name=${post.metadata.name},kind='Post',group='content.halo.run')}"></th:block>
 </th:block>
 </html>
