@@ -595,8 +595,7 @@ p code:after, table code:after {
     float: right
 }
 
-.index-pagination,
-.post-pagination {
+.index-pagination {
     margin: 0;
     padding: 10px 0 0;
     text-align: left;
@@ -606,14 +605,6 @@ p code:after, table code:after {
 
 .index-pagination li {
     list-style-type: none
-}
-
-.post-pagination .post-previous {
-    all: unset;
-    display: list-item;
-    border-radius: 5px;
-    text-decoration: none;
-    list-style-type: none;
 }
 
 a.to_top {
@@ -779,6 +770,11 @@ ul.moment-box li.com-hr:not(:first-child) {
 .iconify, .moment-spec-time, .moment-user-name {
     font-size: 1rem;
     vertical-align: middle
+}
+
+.moment-spec-time {
+    float: right;
+    text-align: right;
 }
 
 .operation a:hover {
